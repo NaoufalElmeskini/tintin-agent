@@ -6,7 +6,7 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.service.AiServices;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,10 +26,11 @@ class ChatLanguageModelController {
                 .build();
     }
 
-    @GetMapping(value = "/generic/chat",
-    produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/generic/chat",
+    produces = MediaType.APPLICATION_JSON_VALUE,
+    consumes = MediaType.APPLICATION_JSON_VALUE
+)
     public ResponseEntity<String> model(@RequestBody QueryToAlbert query) {
         return ok(albertAgent.chat(query.getQuestion()));
     }
-
 }
